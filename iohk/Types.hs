@@ -135,6 +135,7 @@ data Environment
   = Any               -- ^ Wildcard or unspecified, depending on context.
   | Production
   | Staging
+  | Testnet
   | Development
   deriving (Bounded, Eq, Enum, Generic, Read, Show)
 instance FromJSON Environment
