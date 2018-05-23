@@ -50,12 +50,15 @@ nix-instantiate jobsets/cardano.nix --show-trace
 CLEANUP_DEPLS=""
 cleanup() {
         set +xe
+        echo "${CLEANUP_DEPLS:+Cleaning up deployments: ${CLEANUP_DEPLS}}" >&2
         for depl in ${CLEANUP_DEPLS}
         do
                 test -z "${CLEANUP_CONFIGS}" ||
                         rm -f                "${depl}.yaml"
         done
+        echo "Cleaning up home state: ${homestate}"
         rm -rf "${homestate}"
+        echo "Cleanup done."
 }
 trap cleanup EXIT
 
@@ -109,7 +112,9 @@ banner 'Staging infra evaluated'
 fi
 
 echo "Validating terraform"
-
 nix-shell --run "terraform validate -check-variables=false terraform/appveyor-s3-cache"
 
+echo "Git commit ids:"
 ./scripts/find-all-revisions.sh
+
+echo "All OK."
