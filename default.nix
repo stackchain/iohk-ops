@@ -53,4 +53,8 @@ in {
                   --prefix PATH : "${pkgs.lib.makeBinPath iohk-ops-extra-runtime-deps}"
                 '';
              });
+
+  terraform = pkgs.callPackage ./terraform/terraform.nix {};
+  mfa = pkgs.callPackage ./terraform/mfa.nix {};
+
 } // cardano-sl-pkgs
