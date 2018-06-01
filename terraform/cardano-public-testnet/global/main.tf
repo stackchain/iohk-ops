@@ -1,6 +1,6 @@
 
 resource "aws_route53_zone" "cardano_testnet" {
-  name = "cardano-testnet.iohk.io"
+  name = "cardano-testnet.iohkdev.io"
   tags {
     Environment = "testnet"
   }
@@ -8,7 +8,7 @@ resource "aws_route53_zone" "cardano_testnet" {
 
 resource "aws_route53_record" "cardano_testnet_ns" {
   zone_id = "${aws_route53_zone.cardano_testnet.zone_id}"
-  name    = "cardano-testnet.iohk.io"
+  name    = "cardano-testnet.iohkdev.io"
   type    = "NS"
   ttl     = "30"
 
