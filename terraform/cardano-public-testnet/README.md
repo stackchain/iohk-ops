@@ -1,4 +1,6 @@
-# Global Terraform Deployment
+# Cardano SL Public Testnet Deployment
+
+## Global Terraform
 
 The global terraform files configure AWS resources such as IAM users,
 policies, S3 buckets, DNS entries. The idea is to manage this
@@ -20,9 +22,9 @@ been installed by NixOps on the deployer host.
 For deployment of the deployer, see
 [../cardano-deployer/README.md](../cardano-deployer/README.md).
 
-## 1. Credentials setup
+### 1. Credentials setup
 
-### PGP Key
+#### PGP Key
 
 Import or generate the deployer GPG key.
 
@@ -38,7 +40,7 @@ Import or generate the deployer GPG key.
 This key is used to encrypt the secret keys and passwords of IAM users
 deployed by terraform.
 
-### AWS Root Account Credentials
+#### AWS Root Account Credentials
 
 Place credentials for AWS root account in `~/.aws/credentials`:
 
@@ -49,7 +51,7 @@ Place credentials for AWS root account in `~/.aws/credentials`:
     aws_secret_access_key = ...
     EOF
 
-## 2. Terraform wants to init
+### 2. Terraform wants to init
 
     cd iohk-ops/terraform/cardano-public-testnet
     terraform init
@@ -57,11 +59,11 @@ Place credentials for AWS root account in `~/.aws/credentials`:
 The Terraform state file is stored in S3 so that it can easily be
 restored (through `terraform init`) if the deployer is lost.
 
-## 3. Deploy
+### 3. Deploy
 
     terraform apply
 
-## 4. Install keys
+### 4. Install keys
 
 This copies the AWS credentials out of the Terraform state file (and
 locally written output files) into the home directories of deployer
@@ -69,7 +71,7 @@ users and developers.
 
     ./install_aws_credentials.sh
 
-## 5. Finished global terraform
+### 5. Finished global terraform
 
 At this stage, all user accounts are created and local deployer users
 have their credentials.
@@ -87,7 +89,7 @@ Run:
 
 This should work.
 
-## 6. Please sir, can I have some more?
+### 6. Please sir, can I have some more?
 
 The network needs elastic IPs, lots of them.
 
@@ -97,14 +99,24 @@ EIP limits.
  * eu-central-1: 8
 
 
-## 7. Cardano Genesis Data Preparation
+
+## Cardano SL network deployment with iohk-ops
 
 Log in to `testnet@testnet-deployer` and clone iohk-ops. Branch should
 be master probably.
 
     io clone iohk-ops BRANCH
-    cd iohk-ops
 
+Get yourself some temporary credentials with your preconfigured MFA
+for the testnet IAM user.
+
+    [testnet@testnet-deployer:~]$ eval `aws-mfa`
+    Enter MFA Token and press [ENTER]: 447784
+
+
+### 1. Cardano Genesis Data Preparation
+
+    cd iohk-ops
     nix-shell -A withAuxx
 
 
@@ -128,7 +140,7 @@ be master probably.
     # commit this and push, update cardano revision
 
 
-## 8. Deploy testnet
+### 2. Deploy testnet
 
 From the directory `testnet@testnet-deployer:iohk-ops`.
 
