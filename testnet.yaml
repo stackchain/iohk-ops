@@ -16,7 +16,7 @@ args:
     contents: default
 environment: Testnet
 topology: topology-testnet.yaml
-installer-bucket: updates.cardano-testnet.iohk.io
+installer-bucket: updates.cardano-testnet.iohkdev.io
 name: csl-testnet
 files:
 - deployments/keypairs.nix

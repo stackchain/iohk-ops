@@ -38,7 +38,7 @@ module "global" {
 
 # module "testnet_installer_bucket" {
 #   source      = "./modules/installer_bucket"
-#   bucket_name = "updates.cardano-testnet.iohk.io"
+#   bucket_name = "updates.cardano-testnet.iohkdev.io"
 #   prefix      = "updates-cardano-testnet"
 #   aws_region  = "ap-southeast-1"
 #   group       = "${aws_iam_group.deployers.name}"
