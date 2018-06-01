@@ -1,8 +1,24 @@
 # Global Terraform Deployment
 
-Deploy this from `deployer@testnet-deployer`. The correct version of
-Terraform and necessary plugins should already have been installed by
-nixops.
+The global terraform files configure AWS resources such as IAM users,
+policies, S3 buckets, DNS entries. The idea is to manage this
+configuration in code so that it's easier to audit and maintain.
+
+Each developer will have their own AWS credentials installed under
+their own UNIX user account. MFA is required for everyone including
+devops. Private information is protected with file permissions. All
+developers share the same AWS subaccount however.
+
+There are separate AWS credentials to deploy the testnet, under a
+separate `testnet` user, using a separate `cardano-public-testnet` AWS
+subaccount.
+
+Deploy the global terraform code from `deployer@testnet-deployer`. The
+correct version of Terraform and necessary plugins should already have
+been installed by NixOps on the deployer host.
+
+For deployment of the deployer, see
+[../cardano-deployer/README.md](../cardano-deployer/README.md).
 
 ## 1. Credentials setup
 
